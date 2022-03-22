@@ -11,20 +11,10 @@ class IssueWorker
         $dbResult = IssueTable::getList(
             [
                 'order' => ['DOMAIN' => 'asc'],
-                'filter' => ['EXPORTED' => 'N'],
-                'select' => ['DOMAIN', 'EXPORTED', 'FIELDS']
-            ]
-        );
-
-        $dbResult = IssueTable::getList(
-            [
-                'order' => ['DOMAIN' => 'asc'],
                 'filter' => [
                     'LOGIC' => 'OR',
-                    [
-                        'EXPORTED' => 'N',
-                        'EXPORTED_SUBTASK' => 'N'
-                    ]
+                    'EXPORTED' => 'N',
+                    'EXPORTED_SUBTASK' => 'N'
                 ],
                 'select' => ['DOMAIN', 'EXPORTED', 'FIELDS']
             ]
