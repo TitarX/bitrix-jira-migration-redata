@@ -8,12 +8,26 @@ class SprintWorker extends Worker
 {
     public static function run(): void
     {
-        $dbResult = SprintTable::getList(
-            [
-                'order' => ['DOMAIN' => 'asc'],
-                'filter' => ['EXPORTED' => 'N'],
-                'select' => ['DOMAIN', 'EXPORTED', 'FIELDS']
-            ]
-        );
+        $isRowsEnds = false;
+        for ($i = 0; !$isRowsEnds; $i++) {
+            $dbResult = SprintTable::getList(
+                [
+                    'order' => ['DOMAIN' => 'asc'],
+                    'filter' => ['EXPORTED' => 'N'],
+                    'select' => ['DOMAIN', 'EXPORTED', 'FIELDS'],
+                    'limit' => self::DB_SELECT_LIMIT,
+                    'offset' => (self::DB_SELECT_LIMIT * $i)
+                ]
+            );
+
+            $resultCount = $dbResult->getSelectedRowsCount();
+            if ($resultCount < self::DB_SELECT_LIMIT) {
+                $isRowsEnds = true;
+            }
+
+            while ($arrResult = $dbResult->fetch()) {
+                //
+            }
+        }
     }
 }
