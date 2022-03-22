@@ -6,7 +6,7 @@ use Dev\PerfCode\JiraMigrationReData\Models\StageTable;
 
 class StageWorker
 {
-    public static function run()
+    public static function run(): void
     {
         $dbResult = StageTable::getList(
             [

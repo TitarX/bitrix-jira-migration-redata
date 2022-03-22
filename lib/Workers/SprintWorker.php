@@ -4,9 +4,9 @@ namespace Dev\PerfCode\JiraMigrationReData\Workers;
 
 use Dev\PerfCode\JiraMigrationReData\Models\SprintTable;
 
-class SprintWorker
+class SprintWorker extends Worker
 {
-    public static function run()
+    public static function run(): void
     {
         $dbResult = SprintTable::getList(
             [

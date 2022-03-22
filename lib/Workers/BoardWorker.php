@@ -6,7 +6,7 @@ use Dev\PerfCode\JiraMigrationReData\Models\BoardTable;
 
 class BoardWorker
 {
-    public static function run()
+    public static function run(): void
     {
         $dbResult = BoardTable::getList(
             [

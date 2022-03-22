@@ -6,7 +6,7 @@ use Dev\PerfCode\JiraMigrationReData\Models\CommentTable;
 
 class CommentWorker
 {
-    public static function run()
+    public static function run(): void
     {
         $dbResult = CommentTable::getList(
             [

@@ -6,7 +6,7 @@ use Dev\PerfCode\JiraMigrationReData\Models\EpicTable;
 
 class EpicWorker
 {
-    public static function run()
+    public static function run(): void
     {
         $dbResult = EpicTable::getList(
             [

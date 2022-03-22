@@ -30,10 +30,10 @@ require($_SERVER['DOCUMENT_ROOT'] . '/bitrix/modules/main/include/prolog_before.
 
 set_time_limit(0);
 
-Workers\SprintWorker::run();
+//Workers\SprintWorker::run();
 //Workers\StageWorker::run();
 //Workers\EpicWorker::run();
-//Workers\IssueWorker::run();
+Workers\IssueWorker::run();
 //Workers\CommentWorker::run();
 //Workers\BoardWorker::run();
 
