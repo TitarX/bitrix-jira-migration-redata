@@ -51,21 +51,11 @@ class SprintWorker extends Worker
                         $updateResult = SprintTable::update($primaryKey, $newData);
                         if (!$updateResult->isSuccess()) {
                             $errorMessages = $updateResult->getErrorMessages();
-
-                            $logMessage = 'New data for update: ' . print_r($newData, true);
-                            $logMessage .= PHP_EOL;
-                            $logMessage .= 'Error messages: ' . print_r($errorMessages, true);
-
-                            LogHelper::writeFileLog('SprintErrors', $logMessage, print_r($primaryKey, true));
+                            LogHelper::updateResultFileLog('SprintErrors', print_r($errorMessages, true), print_r($newData, true), print_r($primaryKey, true));
                         }
                     } catch (Exception $exception) {
                         $exceptionMessage = $exception->getMessage();
-
-                        $logMessage = 'New data for update: ' . print_r($newData, true);
-                        $logMessage .= PHP_EOL;
-                        $logMessage .= "Exception messages: {$exceptionMessage}";
-
-                        LogHelper::writeFileLog('SprintExceptions', $logMessage, print_r($primaryKey, true));
+                        LogHelper::updateResultFileLog('SprintExceptions', $exceptionMessage, print_r($newData, true), print_r($primaryKey, true));
                     }
                 }
             }
