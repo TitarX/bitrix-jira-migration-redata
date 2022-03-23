@@ -2,7 +2,6 @@
 
 namespace Dev\PerfCode\JiraMigrationReData\Workers;
 
-use Bitrix\Main\DB\Exception;
 use Dev\PerfCode\JiraMigrationReData\Models\SprintTable;
 use Dev\PerfCode\JiraMigrationReData\Helpers\LogHelper;
 
@@ -53,7 +52,7 @@ class SprintWorker extends Worker
                             $errorMessages = $updateResult->getErrorMessages();
                             LogHelper::updateResultFileLog('SprintErrors', print_r($errorMessages, true), print_r($newData, true), print_r($primaryKey, true));
                         }
-                    } catch (Exception $exception) {
+                    } catch (\Exception $exception) {
                         $exceptionMessage = $exception->getMessage();
                         LogHelper::updateResultFileLog('SprintExceptions', $exceptionMessage, print_r($newData, true), print_r($primaryKey, true));
                     }
