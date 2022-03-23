@@ -2,7 +2,6 @@
 
 namespace Dev\PerfCode\JiraMigrationReData\Workers;
 
-use Bitrix\Main\DB\Exception;
 use Dev\PerfCode\JiraMigrationReData\Models\StageTable;
 use Dev\PerfCode\JiraMigrationReData\Helpers\LogHelper;
 
@@ -50,7 +49,7 @@ class StageWorker extends Worker
                             $errorMessages = $updateResult->getErrorMessages();
                             LogHelper::updateResultFileLog('StageErrors', print_r($errorMessages, true), print_r($newData, true), print_r($primaryKey, true));
                         }
-                    } catch (Exception $exception) {
+                    } catch (\Exception $exception) {
                         $exceptionMessage = $exception->getMessage();
                         LogHelper::updateResultFileLog('StageExceptions', $exceptionMessage, print_r($newData, true), print_r($primaryKey, true));
                     }
