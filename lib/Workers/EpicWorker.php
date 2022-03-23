@@ -14,7 +14,9 @@ class EpicWorker extends Worker
             $dbResult = EpicTable::getList(
                 [
                     'order' => ['MEMBER_ID' => 'ASC', 'JIRA_ID' => 'ASC'],
-                    'filter' => ['EXPORTED' => 'N'],
+                    'filter' => [
+                       // 'EXPORTED' => 'N'
+                    ],
                     'select' => ['MEMBER_ID', 'JIRA_ID', 'EXPORTED', 'FIELDS'],
                     'limit' => self::DB_SELECT_LIMIT,
                     'offset' => (self::DB_SELECT_LIMIT * $i)

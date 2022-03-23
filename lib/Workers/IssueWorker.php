@@ -15,9 +15,9 @@ class IssueWorker extends Worker
                 [
                     'order' => ['MEMBER_ID' => 'ASC', 'JIRA_ID' => 'ASC'],
                     'filter' => [
-                        'LOGIC' => 'OR',
-                        'EXPORTED' => 'N',
-                        'EXPORTED_SUBTASK' => 'N'
+                        // 'LOGIC' => 'OR',
+                        // 'EXPORTED' => 'N',
+                        // 'EXPORTED_SUBTASK' => 'N'
                     ],
                     'select' => ['MEMBER_ID', 'JIRA_ID', 'EXPORTED', 'EXPORTED_SUBTASK', 'FIELDS'],
                     'limit' => self::DB_SELECT_LIMIT,

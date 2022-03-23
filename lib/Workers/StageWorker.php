@@ -14,7 +14,9 @@ class StageWorker extends Worker
             $dbResult = StageTable::getList(
                 [
                     'order' => ['MEMBER_ID' => 'ASC', 'JIRA_ID' => 'ASC', 'JIRA_PROJECT_ID' => 'ASC'],
-                    'filter' => ['EXPORTED' => 'N'],
+                    'filter' => [
+                       // 'EXPORTED' => 'N'
+                    ],
                     'select' => ['MEMBER_ID', 'JIRA_ID', 'JIRA_PROJECT_ID', 'EXPORTED', 'FIELDS', 'POSITION'],
                     'limit' => self::DB_SELECT_LIMIT,
                     'offset' => (self::DB_SELECT_LIMIT * $i)
