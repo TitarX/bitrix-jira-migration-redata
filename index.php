@@ -30,11 +30,15 @@ require($_SERVER['DOCUMENT_ROOT'] . '/bitrix/modules/main/include/prolog_before.
 
 set_time_limit(0);
 
+/*
+ * Поочерёдное выполнение распределения данных полей FIELDS кождой сущности.
+ * Выполнение IssueWorker может занять несколько часов, других - несколько секунд.
+ */
 //Workers\SprintWorker::run();
 //Workers\StageWorker::run();
 //Workers\EpicWorker::run();
-Workers\IssueWorker::run();
 //Workers\CommentWorker::run();
 //Workers\BoardWorker::run();
+//Workers\IssueWorker::run();
 
 require($_SERVER['DOCUMENT_ROOT'] . '/bitrix/modules/main/include/epilog_after.php');
