@@ -6,7 +6,7 @@ use Dev\PerfCode\JiraMigrationReData\Helpers\MiscHelper;
 
 class LogHelper
 {
-    public static function getLogFilePath(string $logName): ?string
+    private static function getLogFilePath(string $logName): ?string
     {
         $appDirPath = MiscHelper::getAppDirPath();
         $logDirPath = "{$appDirPath}/log";
@@ -22,19 +22,13 @@ class LogHelper
         }
     }
 
-    public static function writeFileLog(string $logName, string $message, string $identifier = 'Missing', bool $logFileClear = false): void
+    private static function fileLog(string $logName, string $logMessage, bool $logFileClear = false): void
     {
         $logFilePath = self::getLogFilePath($logName);
         if (isset($logFilePath)) {
             if ($logFileClear && file_exists($logFilePath)) {
                 unlink($logFilePath);
             }
-
-            $logMessage = ('Date: ' . date('Y.m.d - H:i:s'));
-            $logMessage .= PHP_EOL;
-            $logMessage .= ('Identifier: ' . $identifier);
-            $logMessage .= PHP_EOL;
-            $logMessage .= ('Message: ' . $message);
 
             file_put_contents($logFilePath, $logMessage, FILE_APPEND);
             file_put_contents($logFilePath, PHP_EOL, FILE_APPEND);
@@ -43,5 +37,18 @@ class LogHelper
             file_put_contents($logFilePath, PHP_EOL, FILE_APPEND);
             file_put_contents($logFilePath, PHP_EOL, FILE_APPEND);
         }
+    }
+
+    public static function updateResultFileLog(string $logName, string $resultMessage, string $newData, string $identifier = 'Missing', bool $logFileClear = false): void
+    {
+        $logMessage = ('Date: ' . date('Y.m.d - H:i:s'));
+        $logMessage .= PHP_EOL;
+        $logMessage .= ('Identifier: ' . $identifier);
+        $logMessage .= PHP_EOL;
+        $logMessage .= ('New data for update: ' . $newData);
+        $logMessage .= PHP_EOL;
+        $logMessage .= ('Message: ' . $resultMessage);
+
+        self::fileLog($logName, $logMessage, $logFileClear);
     }
 }
