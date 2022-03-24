@@ -10,10 +10,14 @@ class IssueWorker extends Worker
     public static function run(): void
     {
         // LogHelper::removeLog('IssueEmptyFieldsDomainLog');
-        // LogHelper::removeLog('WorkProcessLog');
+        // LogHelper::removeLog('IssueWorkProcessLog');
 
         $isRowsEnds = false;
         for ($i = 0; !$isRowsEnds; $i++) {
+            $selectOffset = self::DB_SELECT_LIMIT * $i;
+
+            LogHelper::workProcessLog('IssueWorkProcessLog', "Offset: {$selectOffset}");
+
             $dbResult = IssueTable::getList(
                 [
                     'order' => ['MEMBER_ID' => 'ASC', 'JIRA_ID' => 'ASC'],
@@ -24,7 +28,7 @@ class IssueWorker extends Worker
                     ],
                     'select' => ['MEMBER_ID', 'JIRA_ID', 'DOMAIN', 'FIELDS'],
                     'limit' => self::DB_SELECT_LIMIT,
-                    'offset' => (self::DB_SELECT_LIMIT * $i)
+                    'offset' => $selectOffset
                 ]
             );
 

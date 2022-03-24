@@ -88,4 +88,12 @@ class LogHelper
             file_put_contents($logFilePath, PHP_EOL, FILE_APPEND);
         }
     }
+
+    public static function workProcessLog(string $logName, string $iDo): void
+    {
+        $logFilePath = self::getLogFilePath($logName);
+        $dateString = date('Y.m.d - H:i:s');
+        file_put_contents($logFilePath, "{$dateString} --> {$iDo}", FILE_APPEND);
+        file_put_contents($logFilePath, PHP_EOL, FILE_APPEND);
+    }
 }
