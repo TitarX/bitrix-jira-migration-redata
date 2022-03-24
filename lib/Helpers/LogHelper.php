@@ -49,7 +49,7 @@ class LogHelper
 
     public static function updateResultFileLog(string $logName, string $resultMessage, string $newData, string $identifier = 'Missing', bool $logFileClear = false): void
     {
-        $logMessage = ('Date: ' . date('Y.m.d - H:i:s'));
+        $logMessage = ('Date: ' . date('(e) Y.m.d - H:i:s'));
         $logMessage .= PHP_EOL;
         $logMessage .= ('Identifier: ' . $identifier);
         $logMessage .= PHP_EOL;
@@ -92,7 +92,7 @@ class LogHelper
     public static function workProcessLog(string $logName, string $iDo): void
     {
         $logFilePath = self::getLogFilePath($logName);
-        $dateString = date('Y.m.d - H:i:s');
+        $dateString = date('(e) Y.m.d - H:i:s');
         file_put_contents($logFilePath, "{$dateString} --> {$iDo}", FILE_APPEND);
         file_put_contents($logFilePath, PHP_EOL, FILE_APPEND);
     }
