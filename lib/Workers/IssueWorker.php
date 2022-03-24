@@ -125,6 +125,10 @@ class IssueWorker extends Worker
                     LogHelper::updateResultFileLog('IssueExceptions', $exceptionMessage, print_r($newData, true), print_r($primaryKey, true));
                 }
             }
+
+            if ($isRowsEnds) {
+                LogHelper::workProcessLog('IssueWorkProcessLog', "Done!");
+            }
         }
     }
 }
