@@ -39,6 +39,14 @@ class LogHelper
         }
     }
 
+    public static function removeLog(string $logName): void
+    {
+        $logFilePath = self::getLogFilePath($logName);
+        if (file_exists($logFilePath)) {
+            unlink($logFilePath);
+        }
+    }
+
     public static function updateResultFileLog(string $logName, string $resultMessage, string $newData, string $identifier = 'Missing', bool $logFileClear = false): void
     {
         $logMessage = ('Date: ' . date('Y.m.d - H:i:s'));

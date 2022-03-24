@@ -9,6 +9,9 @@ class IssueWorker extends Worker
 {
     public static function run(): void
     {
+        // LogHelper::removeLog('IssueEmptyFieldsDomainLog');
+        // LogHelper::removeLog('WorkProcessLog');
+
         $isRowsEnds = false;
         for ($i = 0; !$isRowsEnds; $i++) {
             $dbResult = IssueTable::getList(
