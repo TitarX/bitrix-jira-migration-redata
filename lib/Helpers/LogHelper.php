@@ -51,4 +51,33 @@ class LogHelper
 
         self::fileLog($logName, $logMessage, $logFileClear);
     }
+
+    public static function emptyFieldDomainLog(string $logName, string $domainName): void
+    {
+        $logFilePath = self::getLogFilePath($logName);
+        $domainName = trim($domainName);
+
+        $isDomainExists = false;
+        if (file_exists($logFilePath)) {
+            $filePointer = fopen($logFilePath, 'r');
+            if ($filePointer) {
+                while (($fileString = fgets($filePointer)) !== false) {
+                    if (is_string($fileString)) {
+                        $fileString = trim($fileString);
+                        if ($fileString === $domainName) {
+                            $isDomainExists = true;
+                            break;
+                        }
+                    }
+                }
+
+                fclose($filePointer);
+            }
+        }
+
+        if (!$isDomainExists) {
+            file_put_contents($logFilePath, $domainName, FILE_APPEND);
+            file_put_contents($logFilePath, PHP_EOL, FILE_APPEND);
+        }
+    }
 }

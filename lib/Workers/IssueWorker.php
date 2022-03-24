@@ -19,7 +19,7 @@ class IssueWorker extends Worker
                         // 'EXPORTED' => 'N',
                         // 'EXPORTED_SUBTASK' => 'N'
                     ],
-                    'select' => ['MEMBER_ID', 'JIRA_ID', 'EXPORTED', 'EXPORTED_SUBTASK', 'FIELDS'],
+                    'select' => ['MEMBER_ID', 'JIRA_ID', 'DOMAIN', 'FIELDS'],
                     'limit' => self::DB_SELECT_LIMIT,
                     'offset' => (self::DB_SELECT_LIMIT * $i)
                 ]
@@ -31,6 +31,7 @@ class IssueWorker extends Worker
             }
 
             while ($arrResult = $dbResult->fetch()) {
+                $newData = [];
                 if (!empty($arrResult['FIELDS'])) {
                     $comments = [];
                     foreach ($arrResult['FIELDS']['fields']['comment']['comments'] as $issueCommentKey => $issueComment) {
@@ -91,19 +92,25 @@ class IssueWorker extends Worker
                         'FIELDS' => $fields,
                         'COMMENTS' => $comments
                     ];
+                } else {
+                    $newData = [
+                        'FIELDS' => ''
+                    ];
 
-                    $primaryKey = ['MEMBER_ID' => $arrResult['MEMBER_ID'], 'JIRA_ID' => $arrResult['JIRA_ID']];
+                    LogHelper::emptyFieldDomainLog('IssueEmptyFieldsDomainLog', $arrResult['DOMAIN']);
+                }
 
-                    try {
-                        $updateResult = IssueTable::update($primaryKey, $newData);
-                        if (!$updateResult->isSuccess()) {
-                            $errorMessages = $updateResult->getErrorMessages();
-                            LogHelper::updateResultFileLog('IssueErrors', print_r($errorMessages, true), print_r($newData, true), print_r($primaryKey, true));
-                        }
-                    } catch (\Exception $exception) {
-                        $exceptionMessage = $exception->getMessage();
-                        LogHelper::updateResultFileLog('IssueExceptions', $exceptionMessage, print_r($newData, true), print_r($primaryKey, true));
+                $primaryKey = ['MEMBER_ID' => $arrResult['MEMBER_ID'], 'JIRA_ID' => $arrResult['JIRA_ID']];
+
+                try {
+                    $updateResult = IssueTable::update($primaryKey, $newData);
+                    if (!$updateResult->isSuccess()) {
+                        $errorMessages = $updateResult->getErrorMessages();
+                        LogHelper::updateResultFileLog('IssueErrors', print_r($errorMessages, true), print_r($newData, true), print_r($primaryKey, true));
                     }
+                } catch (\Exception $exception) {
+                    $exceptionMessage = $exception->getMessage();
+                    LogHelper::updateResultFileLog('IssueExceptions', $exceptionMessage, print_r($newData, true), print_r($primaryKey, true));
                 }
             }
         }
