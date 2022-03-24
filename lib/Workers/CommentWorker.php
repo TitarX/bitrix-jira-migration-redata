@@ -17,7 +17,7 @@ class CommentWorker extends Worker
                     'filter' => [
                        // 'EXPORTED' => 'N'
                     ],
-                    'select' => ['MEMBER_ID', 'JIRA_ID', 'JIRA_ISSUE_ID', 'EXPORTED', 'FIELDS'],
+                    'select' => ['MEMBER_ID', 'JIRA_ID', 'JIRA_ISSUE_ID', 'FIELDS'],
                     'limit' => self::DB_SELECT_LIMIT,
                     'offset' => (self::DB_SELECT_LIMIT * $i)
                 ]

@@ -17,7 +17,7 @@ class SprintWorker extends Worker
                     'filter' => [
                        // 'EXPORTED' => 'N'
                     ],
-                    'select' => ['MEMBER_ID', 'JIRA_ID', 'EXPORTED', 'FIELDS'],
+                    'select' => ['MEMBER_ID', 'JIRA_ID', 'FIELDS'],
                     'limit' => self::DB_SELECT_LIMIT,
                     'offset' => (self::DB_SELECT_LIMIT * $i)
                 ]

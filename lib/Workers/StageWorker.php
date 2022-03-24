@@ -17,7 +17,7 @@ class StageWorker extends Worker
                     'filter' => [
                        // 'EXPORTED' => 'N'
                     ],
-                    'select' => ['MEMBER_ID', 'JIRA_ID', 'JIRA_PROJECT_ID', 'EXPORTED', 'FIELDS', 'POSITION'],
+                    'select' => ['MEMBER_ID', 'JIRA_ID', 'JIRA_PROJECT_ID', 'FIELDS', 'POSITION'],
                     'limit' => self::DB_SELECT_LIMIT,
                     'offset' => (self::DB_SELECT_LIMIT * $i)
                 ]
