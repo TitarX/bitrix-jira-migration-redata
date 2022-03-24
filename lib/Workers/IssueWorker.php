@@ -40,6 +40,11 @@ class IssueWorker extends Worker
             while ($arrResult = $dbResult->fetch()) {
                 $newData = [];
                 if (!empty($arrResult['FIELDS'])) {
+                    // Если присутствует поле "['FIELDS']", но отсутствует "['FIELDS']['fields']", данные уже были распределены
+                    if (!isset($arrResult['FIELDS']['fields'])) {
+                        continue;
+                    }
+
                     $comments = [];
                     foreach ($arrResult['FIELDS']['fields']['comment']['comments'] as $issueCommentKey => $issueComment) {
                         $comments[$issueCommentKey] = [
